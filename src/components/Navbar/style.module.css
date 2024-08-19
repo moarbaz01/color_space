@@ -1,0 +1,39 @@
+/* style.module.css */
+.wrapper {
+  @apply w-full py-8 px-4 backdrop-blur-lg bg-white/40  fixed top-0 left-0;
+}
+.navbarContainer {
+  @apply flex justify-between items-center mx-auto max-w-screen-xl;
+}
+
+.logo {
+  @apply md:text-3xl text-2xl font-[500]  tracking-wide flex items-center;
+}
+
+.logoFirst {
+  @apply text-main_black;
+}
+
+.logoSecond {
+  @apply text-main_black;
+}
+
+.buttonContainer {
+  @apply md:flex hidden items-center gap-4;
+}
+
+.navList {
+  @apply md:flex items-center gap-6 hidden pr-4;
+}
+
+.listItem {
+  @apply text-lg text-main_black;
+}
+
+.iconContainer {
+  @apply md:hidden;
+}
+
+.logoImage {
+  @apply rounded-full object-cover aspect-square;
+}
