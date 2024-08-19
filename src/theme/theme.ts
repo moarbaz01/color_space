@@ -7,7 +7,9 @@ const theme = createTheme({
       styleOverrides: {
         contained: {
           backgroundColor: "#1B1B1E", // Custom background color
-          color: "#FFFFFF", // Custom text color
+          color: "#FFFFFF",
+          fontSize: "1rem",
+          fontWeight: "600", // Custom text color
           "&:hover": {
             backgroundColor: "#1B1B1E",
             // Custom hover background color
@@ -15,7 +17,9 @@ const theme = createTheme({
         },
         outlined: {
           backgroundColor: "#FBFFFE", // Custom background color
-          color: "#1B1B1E", // Custom text color
+          color: "#1B1B1E",
+          fontSize: "1rem",
+          fontWeight: "600",
           "&:hover": {
             backgroundColor: "#FBFFFE",
             border: "1px solid #1B1B1E", // Custom border color
