@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Provider from "@components/Provider";
+import { Box, Container } from "@mui/material";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
@@ -19,12 +20,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <main className="md:pt-36 pt-16 max-h-full overflow-auto ">
+        <Box
+          component="main"
+          sx={{
+            overflow: "auto",
+            paddingTop: {
+              xs: "8rem",
+              md: "0",
+            },
+            paddingX: {
+              xs: "1rem",
+              md: "2rem",
+            },
+          }}
+        >
           <Provider>
             <Navbar />
             {children}
           </Provider>
-        </main>
+        </Box>
       </body>
     </html>
   );

@@ -1,5 +1,13 @@
 "use client";
-import { Box, Button, Drawer, Menu, MenuItem, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Drawer,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import styles from "./style.module.css";
 import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -32,19 +40,30 @@ const Navbar = () => {
     setIsOpen((prev) => !prev);
   };
   return (
-    <div className={styles.wrapper}>
-      <nav className={styles.navbarContainer}>
+    <Box
+      sx={{
+        position: "fixed",
+        width: "100%",
+        zIndex: "1000",
+        backgroundColor: "white",
+        paddingY: "1rem",
+        paddingX: "1rem",
+        top: "0",
+        left: "0",
+      }}
+    >
+      <Container maxWidth="xl" className={styles.navbarContainer}>
         <Link href={"/"}>
-          <div className="flex-center gap-2">
+          <Box className="flex-center gap-2">
             <Image alt="color space" height={40} width={40} src={logo} />
             <h1 className={styles.logo}>
               <span className={styles.logoFirst}>Color</span>
               <span className={styles.logoSecond}>Space</span>
             </h1>
-          </div>
+          </Box>
         </Link>
 
-        <div className={styles.buttonContainer}>
+        <Box className={styles.buttonContainer}>
           <HomeIcon fontSize="large" />
 
           {!user ? (
@@ -57,7 +76,7 @@ const Navbar = () => {
               </Button>
             </>
           ) : (
-            <div className={styles.profileImageContainer}>
+            <Box className={styles.profileImageContainer}>
               <Image
                 className={styles.logoImage}
                 alt="Logo"
@@ -96,13 +115,13 @@ const Navbar = () => {
                 </MenuItem>
                 <MenuItem onClick={handleClose}>Logout</MenuItem>
               </Menu>
-            </div>
+            </Box>
           )}
-        </div>
+        </Box>
 
-        <div onClick={handleOpenSidebar} className={styles.iconContainer}>
+        <Box onClick={handleOpenSidebar} className={styles.iconContainer}>
           <MenuIcon fontSize="large" />
-        </div>
+        </Box>
         <Drawer
           sx={{ zIndex: "10000" }}
           open={isSidebarOpen}
@@ -122,8 +141,8 @@ const Navbar = () => {
             </Box>
           </Box>
         </Drawer>
-      </nav>
-    </div>
+      </Container>
+    </Box>
   );
 };
 

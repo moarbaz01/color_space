@@ -1,42 +1,72 @@
 "use client";
-import { Box, Button, Container, Typography } from "@mui/material";
-import styles from "./style.module.css";
-import BrushIcon from "@mui/icons-material/Brush";
+import { Box, Button, Typography } from "@mui/material";
 import Carasoul from "./Carasoul";
 const Heropage = () => {
   return (
-    <Box className={styles.hero}>
-      <Box className={styles.heroLeft}>
-        <h1 className={styles.heroLeftHeading}>
-          Discover, <span className="text-main_violet">Create</span>, and Sell
-          Art That Inspires
-        </h1>
-        <p className={styles.heroLeftPara}>
+    <Box
+      sx={{
+        display: "flex",
+        gap: "1rem",
+        flexDirection: {
+          xs: "column-reverse",
+          md: "row",
+        },
+        alignItems: "center",
+        paddingBottom: {
+          xs: "5rem",
+          md: "0rem",
+        },
+        minHeight: {
+          xs: "auto",
+          md: "100vh",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.5rem",
+          flex: "1",
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            fontSize: {
+              xs: "2.5rem",
+              md: "4rem",
+            },
+          }}
+        >
+          Discover,{" "}
+          <Typography
+            variant="inherit"
+            color="primary.main"
+            sx={{ display: "inline" }}
+          >
+            Create
+          </Typography>
+          , and Sell Art That Inspires
+        </Typography>
+        <Typography variant="body1" sx={{ fontSize: "1.2rem" }}>
           Unleash your creativity on a platform where artists and collectors
           meet. Showcase your talent, connect with buyers, and turn your passion
           into profit.
-        </p>
+        </Typography>
 
         {/* Desktop */}
-        <Box className="flex items-center gap-4">
-          <Button
-            variant="contained"
-            sx={{ paddingY: { xs: "12px", md: "20px" } }}
-            size={window.innerWidth >= 768 ? "large" : "medium"}
-          >
-            <BrushIcon fontSize="large" sx={{ paddingRight: "10px" }} />
-            {window.innerWidth >= 768
-              ? "Start Selling Your Art"
-              : "Explore Creations"}
-          </Button>
-          {window.innerWidth >= 768 && (
-            <Button variant="outlined" sx={{ paddingY: "20px" }} size="large">
-              Explore Unique Creations
-            </Button>
-          )}
-        </Box>
+        <Button
+          sx={{
+            paddingY: "10px",
+            width: { xs: "full", md: "40%" },
+          }}
+          size="large"
+          variant="contained"
+        >
+          Explore Unique Creations
+        </Button>
       </Box>
-      {/* Carasoul */}
       <Carasoul />
     </Box>
   );
