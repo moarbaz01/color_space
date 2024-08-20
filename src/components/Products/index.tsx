@@ -13,7 +13,7 @@ interface ProductsProps {
   spaceBetween?: number;
 }
 const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
-  const { width, height } = useDimenstions();
+  const { width } = useDimenstions();
   return (
     <Box
       sx={{
@@ -29,25 +29,40 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
         }}
         autoplay={{
           delay: 3000,
+          pauseOnMouseEnter: true,
         }}
         modules={[Pagination, Autoplay]}
         style={{
           paddingBottom: "2rem",
+          zIndex: 10,
         }}
         className="mySwiper"
       >
         {products.map((item, index) => {
           return (
-            <SwiperSlide key={index}>
+            <SwiperSlide
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                zIndex: 1,
+                cursor: "pointer",
+              }}
+              key={index}
+            >
               <Box
                 sx={{
                   display: "flex",
                   flexDirection: "column",
-                  // alignItems: "center",
                   gap: 2,
                   backgroundColor: "primary.light",
                   padding: "1.5rem",
+                  borderRadius: "0.2rem",
                   position: "relative",
+                  zIndex: 2,
+                  ":hover": {
+                    opacity: 0.8,
+                    transition: "all 0.3s ",
+                  },
                 }}
               >
                 <Image
@@ -59,6 +74,8 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
                     borderRadius: "0.2rem",
                     textAlign: "center",
                     objectFit: "cover",
+                    maxHeight: "20rem",
+                    maxWidth: "full",
                   }}
                 />
                 <Typography variant="h6">{item.name}</Typography>
@@ -70,21 +87,29 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
                     justifyContent: "space-between",
                   }}
                 >
-                  <Button variant="outlined">Add</Button>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                    }}
+                  >
+                    {" "}
+                    <Button variant="outlined">Add</Button>
+                    <FavoriteBorderIcon
+                      sx={{
+                        // position: "absolute",
+                        top: "0.5rem",
+                        right: "0.5rem",
+                      }}
+                      fontSize="medium"
+                      color="primary"
+                    />
+                  </Box>
                   <Typography variant="body2" color="primary.main">
                     ${item.price}
                   </Typography>
                 </Box>
-
-                <FavoriteBorderIcon
-                  sx={{
-                    position: "absolute",
-                    top: "0.5rem",
-                    right: "0.5rem",
-                  }}
-                  fontSize="medium"
-                  color="primary"
-                />
               </Box>
             </SwiperSlide>
           );

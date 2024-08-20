@@ -15,6 +15,7 @@ import Image from "next/image";
 import logo from "../../../public/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import { useRef, useState } from "react";
+import { Shop2Outlined, ShoppingBag } from "@mui/icons-material";
 
 const user = true;
 const Navbar = () => {
@@ -45,16 +46,31 @@ const Navbar = () => {
         position: "fixed",
         width: "100%",
         zIndex: "1000",
-        backgroundColor: "white",
-        paddingY: "1rem",
+        backgroundColor: "rgba(255,255,255,0.5)",
+        paddingY: "1.5rem",
         paddingX: "1rem",
         top: "0",
         left: "0",
+        backdropFilter: "blur(10px)",
+        boxShadow:
+          "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <Container maxWidth="xl" className={styles.navbarContainer}>
+      <Box
+        maxWidth="xl"
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Link href={"/"}>
-          <Box className="flex-center gap-2">
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
             <Image alt="color space" height={40} width={40} src={logo} />
             <h1 className={styles.logo}>
               <span className={styles.logoFirst}>Color</span>
@@ -65,6 +81,7 @@ const Navbar = () => {
 
         <Box className={styles.buttonContainer}>
           <HomeIcon fontSize="large" />
+          <ShoppingBag fontSize="large" />
 
           {!user ? (
             <>
@@ -141,7 +158,7 @@ const Navbar = () => {
             </Box>
           </Box>
         </Drawer>
-      </Container>
+      </Box>
     </Box>
   );
 };

@@ -4,6 +4,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Provider from "@components/Provider";
 import { Box, Container } from "@mui/material";
+import "swiper/css";
+import "swiper/css/pagination"; // Add this
+import "swiper/css/autoplay"; // Add this if necessary
+import "swiper/css/scrollbar";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 

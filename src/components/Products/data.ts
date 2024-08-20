@@ -4,6 +4,7 @@ import image3 from "../../../public/art3.jpg";
 import image4 from "../../../public/art4.jpg";
 import image5 from "../../../public/art5.jpg";
 import image6 from "../../../public/art6.jpg";
+import image7 from "../../../public/art7.jpg";
 export const products = [
     {
         id: 1,
@@ -45,6 +46,13 @@ export const products = [
         name: "Old Monkey photographs after 1950s",
         price: 20,
         image: image6,
+        description: "This is a description of the product",
+    },
+    {
+        id: 7,
+        name: "Old Monkey photographs after 1950s",
+        price: 20,
+        image: image7,
         description: "This is a description of the product",
     },
 ];

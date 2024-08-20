@@ -2,7 +2,6 @@ import React from "react";
 import art1 from "../../../public/art1.jpg";
 import art2 from "../../../public/art2.jpg";
 import art3 from "../../../public/art3.jpg";
-import styles from "./style.module.css";
 
 // import Swiper core and required modules
 import {
@@ -16,18 +15,16 @@ import {
 
 import { Swiper, SwiperSlide } from "swiper/react";
 const photos = [art1, art2, art3, art1, art2, art3];
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import Image from "next/image";
+import { Box } from "@mui/material";
 
 const Carasoul = () => {
   return (
     <Swiper
-      className={styles.carasoulContainer}
+      style={{
+        flex: 1,
+        width: "100%",
+      }}
       modules={[
         Navigation,
         Pagination,
@@ -42,7 +39,6 @@ const Carasoul = () => {
       speed={800}
       autoplay={{
         delay: 1000,
-        reverseDirection: true,
       }}
       effect={"coverflow"}
       coverflowEffect={{
@@ -50,14 +46,19 @@ const Carasoul = () => {
         stretch: 0,
         depth: 200,
         modifier: 1,
-        slideShadows: false,
       }}
       pagination={{ clickable: true }}
     >
       {photos.map((item, index) => {
         return (
           <SwiperSlide key={index}>
-            <div className="flex items-center justify-center">
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <Image
                 src={item}
                 alt={`Index ${index}`}
@@ -65,7 +66,7 @@ const Carasoul = () => {
                 width={600}
                 layout="intrinsic"
               />
-            </div>
+            </Box>
           </SwiperSlide>
         );
       })}
