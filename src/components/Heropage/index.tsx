@@ -4,6 +4,7 @@ import Carasoul from "./Carasoul";
 const Heropage = () => {
   return (
     <Box
+    maxWidth="xl"
       sx={{
         display: "flex",
         gap: "1rem",

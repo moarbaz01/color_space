@@ -7,13 +7,15 @@ import Image from "next/image";
 import "swiper/css";
 import { products } from "./data";
 import useDimenstions from "@hooks/useDimentions";
+import { useRouter } from "next/navigation";
 
 interface ProductsProps {
   slidesPerView?: number;
   spaceBetween?: number;
 }
-const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
+const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
   const { width } = useDimenstions();
+  const router = useRouter();
   return (
     <Box
       sx={{
@@ -22,7 +24,10 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
     >
       {/* Products */}
       <Swiper
-        slidesPerView={width <= 768 ? 1 : slidesPerView}
+        slidesPerView={
+          (width <= 1080 ? 2 : slidesPerView) ||
+          (width <= 768 ? 1 : slidesPerView)
+        }
         spaceBetween={spaceBetween}
         pagination={{
           clickable: true,
@@ -47,6 +52,7 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
                 zIndex: 1,
                 cursor: "pointer",
               }}
+              onClick={() => router.push(`art/${item.name}/${item.id}`)}
               key={index}
             >
               <Box
@@ -59,25 +65,30 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
                   borderRadius: "0.2rem",
                   position: "relative",
                   zIndex: 2,
-                  ":hover": {
-                    opacity: 0.8,
-                    transition: "all 0.3s ",
-                  },
                 }}
               >
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  height={400}
-                  width={400}
-                  style={{
-                    borderRadius: "0.2rem",
-                    textAlign: "center",
-                    objectFit: "cover",
-                    maxHeight: "20rem",
-                    maxWidth: "full",
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "hidden", // Hide any overflow
+                    height: 400,
+                    width: "100%",
                   }}
-                />
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    layout="inherit"
+                    objectFit="cover"
+                    style={{
+                      borderRadius: "0.2rem",
+                      maxWidth: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </Box>
                 <Typography variant="h6">{item.name}</Typography>
                 <Typography variant="body1">{item.description}</Typography>
                 <Box

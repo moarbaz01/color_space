@@ -51,7 +51,11 @@ const Carasoul = () => {
     >
       {photos.map((item, index) => {
         return (
-          <SwiperSlide key={index}>
+          <SwiperSlide style={{ 
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+           }} key={index}>
             <Box
               sx={{
                 display: "flex",

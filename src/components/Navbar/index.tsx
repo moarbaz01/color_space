@@ -15,7 +15,7 @@ import Image from "next/image";
 import logo from "../../../public/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import { useRef, useState } from "react";
-import { Shop2Outlined, ShoppingBag } from "@mui/icons-material";
+import { ShoppingBag } from "@mui/icons-material";
 
 const user = true;
 const Navbar = () => {
@@ -61,6 +61,8 @@ const Navbar = () => {
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "center",
+          margin: "auto",
         }}
       >
         <Link href={"/"}>
