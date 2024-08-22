@@ -16,11 +16,13 @@ import logo from "../../../public/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import { useRef, useState } from "react";
 import { ShoppingBag } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 const user = true;
 const Navbar = () => {
   const anchorEl = useRef<null | HTMLElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   const handleClose = () => {
@@ -83,7 +85,9 @@ const Navbar = () => {
 
         <Box className={styles.buttonContainer}>
           <HomeIcon fontSize="large" />
-          <ShoppingBag fontSize="large" />
+          <Link href="/cart">
+            <ShoppingBag fontSize="large" />
+          </Link>
 
           {!user ? (
             <>
