@@ -2,18 +2,19 @@
 import { Box, Button, Typography } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Scrollbar } from "swiper/modules";
-import Image from "next/image";
+import { Autoplay, Pagination } from "swiper/modules";
+// import Image from "next/image";
 import "swiper/css";
 import { products } from "./data";
 import useDimenstions from "@hooks/useDimentions";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface ProductsProps {
   slidesPerView?: number;
   spaceBetween?: number;
 }
-const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
+const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
   const { width } = useDimenstions();
   const router = useRouter();
   return (
@@ -24,14 +25,13 @@ const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
     >
       {/* Products */}
       <Swiper
-        slidesPerView={
-          (width <= 1080 ? 2 : slidesPerView) ||
-          (width <= 768 ? 1 : slidesPerView)
-        }
+        slidesPerView={width < 600 ? 1 : slidesPerView}
         spaceBetween={spaceBetween}
         pagination={{
           clickable: true,
         }}
+        centeredSlides={true}
+        loop={true}
         autoplay={{
           delay: 3000,
           pauseOnMouseEnter: true,
@@ -41,7 +41,7 @@ const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
           paddingBottom: "2rem",
           zIndex: 10,
         }}
-        className="mySwiper"
+        // className="mySwiper"
       >
         {products.map((item, index) => {
           return (
@@ -74,7 +74,7 @@ const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
                     alignItems: "center",
                     overflow: "hidden", // Hide any overflow
                     height: 400,
-                    width: "100%",
+                    width: 400,
                   }}
                 >
                   <Image
@@ -82,6 +82,7 @@ const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
                     alt={item.name}
                     layout="inherit"
                     objectFit="cover"
+                    loading="eager" // Eagerly load images
                     style={{
                       borderRadius: "0.2rem",
                       maxWidth: "100%",

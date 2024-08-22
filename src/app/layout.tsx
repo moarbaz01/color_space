@@ -24,24 +24,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Box
-          component="main"
-          sx={{
-            paddingTop: {
-              xs: "8rem",
-              md: "0",
-            },
-            paddingX: {
-              xs: "1rem",
-              md: "2rem",
-            },
-          }}
-        >
-          <Provider>
+        <Provider>
+          <Box
+            component="main"
+            sx={{
+              paddingTop: {
+                xs: "8rem",
+                md: "0",
+              },
+              paddingX: {
+                xs: "1rem",
+                md: "2rem",
+              },
+            }}
+          >
             <Navbar />
             {children}
-          </Provider>
-        </Box>
+          </Box>
+        </Provider>
       </body>
     </html>
   );
