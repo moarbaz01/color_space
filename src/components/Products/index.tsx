@@ -24,10 +24,7 @@ const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
     >
       {/* Products */}
       <Swiper
-        slidesPerView={
-          (width <= 1080 ? 2 : slidesPerView) ||
-          (width <= 768 ? 1 : slidesPerView)
-        }
+        slidesPerView={width <= 1080 ? (width <= 768 ? 1 : 2) : slidesPerView}
         spaceBetween={spaceBetween}
         pagination={{
           clickable: true,
@@ -89,7 +86,18 @@ const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
                     }}
                   />
                 </Box>
-                <Typography variant="h6">{item.name}</Typography>
+                <Typography
+                  sx={{
+                    maxWidth: "400px",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+
+                  }}
+                  variant="h6"
+                >
+                  {item.name}
+                </Typography>
                 <Typography variant="body1">{item.description}</Typography>
                 <Box
                   sx={{
