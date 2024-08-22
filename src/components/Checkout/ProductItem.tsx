@@ -1,4 +1,5 @@
 "use client";
+import { Delete } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,7 +16,6 @@ const ProductItem = ({ image, name, description, price, id }: ItemProps) => {
   const router = useRouter();
   return (
     <Box
-     
       sx={{
         display: "flex",
         gap: 2,
@@ -24,13 +24,24 @@ const ProductItem = ({ image, name, description, price, id }: ItemProps) => {
         borderRadius: "0.5rem",
         cursor: "pointer",
         transition: "all 0.3s ease-in-out",
+        position: "relative",
         "&:hover": {
-          boxShadow: "0 0 10px rgba(0,0,0,0.3)",
           opacity: 0.8,
         },
       }}
       onClick={() => router.push(`/art/${name}/${id}`)}
     >
+      <Delete
+        sx={{
+          position: "absolute",
+          top: 10,
+          right: 10,
+          color: "red",
+          "&:hover": {
+            color: "darkred",
+          },
+        }}
+      />
       <Box
         sx={{
           height: 100,

@@ -14,7 +14,7 @@ interface ProductsProps {
   slidesPerView?: number;
   spaceBetween?: number;
 }
-const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
+const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
   const { width } = useDimenstions();
   const router = useRouter();
   return (
@@ -25,10 +25,7 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
     >
       {/* Products */}
       <Swiper
-        slidesPerView={
-          (width <= 1080 ? 2 : slidesPerView) ||
-          (width <= 768 ? 1 : slidesPerView)
-        }
+        slidesPerView={width < 768 ? 1 : slidesPerView}
         spaceBetween={spaceBetween}
         pagination={{
           clickable: true,
@@ -76,15 +73,16 @@ const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
                     justifyContent: "center",
                     alignItems: "center",
                     overflow: "hidden", // Hide any overflow
-                    height: 400,
-                    width: 400,
+                    borderRadius: "0.2rem",
+                    width: "100%",
+                    height: "400px",
                   }}
                 >
                   <Image
                     src={item.image}
                     alt={item.name}
-                    layout="inherit"
-                    objectFit="cover"
+                    width={400}
+                    height={400}
                     loading="eager" // Eagerly load images
                     style={{
                       borderRadius: "0.2rem",
