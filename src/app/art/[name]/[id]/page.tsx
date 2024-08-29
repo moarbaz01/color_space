@@ -1,23 +1,42 @@
 "use client";
 
 import { products } from "@components/Products/data";
-import { Box, Breadcrumbs, Button, Container, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Breadcrumbs,
+  Button,
+  Container,
+  List,
+  Typography,
+} from "@mui/material";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-type ProductType = {
+interface ProductType {
   name: string;
   description: string;
   price: number;
   image: StaticImageData;
   id: string;
-};
+  quantity: number | undefined;
+  owner: {
+    name: string;
+    image: StaticImageData;
+    id: number;
+  };
+  dimensions: {
+    height: number;
+    width: number;
+  };
+}
 
 const ProductPage = () => {
   const { id }: { id: string } = useParams();
   const [product, setProduct] = useState<ProductType | undefined>(undefined);
+  const [quantity, setQuantity] = useState<number>(1);
   useEffect(() => {
     if (id) {
       const temp: ProductType | undefined = products.find(
@@ -125,6 +144,70 @@ const ProductPage = () => {
           >
             ${product?.price}
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+            }}
+          >
+            <Button
+              variant="text"
+              onClick={() =>
+                setQuantity((prev) => (prev > 1 ? prev - 1 : prev))
+              }
+              size="small"
+              sx={{ fontSize: "2rem" }}
+            >
+              -
+            </Button>
+            <Typography variant="body2" fontSize={20}>
+              {quantity}
+            </Typography>
+            <Button
+              onClick={() =>
+                setQuantity((prev) => (prev < 2 ? prev + 1 : prev))
+              }
+              variant="text"
+              sx={{ fontSize: "2rem" }}
+            >
+              +
+            </Button>
+          </Box>
+          <Box
+            component="div"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              background: "rgba(0,0,0,0.1)",
+              paddingX: 4,
+              paddingY: 1,
+              width: "fit-content",
+              borderRadius: 1,
+              cursor: "pointer",
+              transition: "all 0.3s",
+              "&:hover": {
+                opacity: 0.8,
+              },
+            }}
+          >
+            <Image
+              src={product?.owner.image || ""}
+              alt={product?.owner.name || ""}
+              width={50}
+              height={50}
+              style={{
+                borderRadius: "50%",
+                objectFit: "cover",
+                border: "1px solid purple",
+              }}
+            />
+            <Box>
+              <Typography variant="h6">{product?.owner.name}</Typography>
+              <Typography variant="caption">Professional artist</Typography>
+            </Box>
+          </Box>
           <Button
             variant="contained"
             sx={{

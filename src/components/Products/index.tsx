@@ -14,7 +14,7 @@ interface ProductsProps {
   slidesPerView?: number;
   spaceBetween?: number;
 }
-const Products = ({ slidesPerView = 2, spaceBetween = 30 }: ProductsProps) => {
+const Products = ({ slidesPerView = 3, spaceBetween = 30 }: ProductsProps) => {
   const { width } = useDimenstions();
   const router = useRouter();
   return (
