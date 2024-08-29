@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  PENDING
+  COMPLETED
+  CANCELLED
+  OUTOFSTOCK
+}
+
+enum PaymentStatus {
+  UNPAID
+  PAID
+}
+
+model Art {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  dimensions  String
+  image       String
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id])
+  published   Boolean  @default(true)
+  quantity    Int
+  price       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  image      String
+  googleId   String?
+  role       String   @default("USER")
+  isVerified Boolean  @default(false)
+  password   String?
+  sold       Int? // Consider Int if tracking quantity
+  earning    Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  arts       Art[]
+  carts      Cart[]
+  orders     Order[]
+}
+
+model Cart {
+  id        String   @id @default(uuid())
+  artId     String
+  quantity  Int
+  total     Int
+  ownerId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  owner     User     @relation(fields: [ownerId], references: [id])
+  Order     Order?   @relation(fields: [orderId], references: [id])
+  orderId   String?
+}
+
+model Order {
+  id            String        @id @default(uuid())
+  ownerId       String
+  total         Int
+  items         Int
+  status        Status
+  paymentStatus PaymentStatus
+  carts         Cart[] // Rename to better reflect contents
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  owner         User          @relation(fields: [ownerId], references: [id])
+}

@@ -8,7 +8,6 @@ import "swiper/css";
 import "swiper/css/pagination"; // Add this
 import "swiper/css/autoplay"; // Add this if necessary
 import "swiper/css/scrollbar";
-import UserContextProvider from "@context/UserContext";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 

@@ -1,14 +1,5 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Drawer,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@mui/material";
-import styles from "./style.module.css";
+import { Box, Button, Drawer, Menu, MenuItem, Typography } from "@mui/material";
 import Link from "next/link";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
@@ -16,14 +7,17 @@ import logo from "../../../public/logo.png";
 import HomeIcon from "@mui/icons-material/Home";
 import { useRef, useState } from "react";
 import { ShoppingBag } from "@mui/icons-material";
+import { usePathname } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const user = true;
 const Navbar = () => {
+  const router = useRouter();
+  const path = usePathname();
   const anchorEl = useRef<null | HTMLElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+  const { data: session } = useSession();
 
   const handleClose = () => {
     anchorEl.current = null;
@@ -38,10 +32,13 @@ const Navbar = () => {
   };
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
-    console.log("Hello");
     anchorEl.current = event.currentTarget;
     setIsOpen((prev) => !prev);
   };
+
+  if (path.startsWith("/auth")) {
+    return null;
+  }
   return (
     <Box
       sx={{
@@ -76,73 +73,120 @@ const Navbar = () => {
             }}
           >
             <Image alt="color space" height={40} width={40} src={logo} />
-            <h1 className={styles.logo}>
-              <span className={styles.logoFirst}>Color</span>
-              <span className={styles.logoSecond}>Space</span>
-            </h1>
+            <Box
+              component="div"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                variant="h5"
+                sx={{
+                  color: "primary.main",
+                }}
+              >
+                Color
+              </Typography>
+              <Typography
+                variant="h5"
+                sx={{
+                  transform: "rotateX(180deg)",
+                  paddingLeft: "5px",
+                }}
+              >
+                Space
+              </Typography>
+            </Box>
           </Box>
         </Link>
 
-        <Box className={styles.buttonContainer}>
-          <HomeIcon fontSize="large" />
-          <Link href="/cart">
-            <ShoppingBag fontSize="large" />
-          </Link>
-
-          {!user ? (
+        <Box
+          sx={{
+            display: {
+              xs: "none",
+              md: "flex",
+            },
+            alignItems: "center",
+            gap: 2,
+          }}
+        >
+          {!session?.user ? (
             <>
-              <Button variant="contained" size="large">
+              <Button
+                onClick={() => router.push("/auth/login")}
+                variant="contained"
+                size="large"
+              >
                 Log In
               </Button>
-              <Button variant="outlined" size="large">
+              <Button
+                onClick={() => router.push("/auth/signup")}
+                variant="outlined"
+                size="large"
+              >
                 Sign Up
               </Button>
             </>
           ) : (
-            <Box className={styles.profileImageContainer}>
-              <Image
-                className={styles.logoImage}
-                alt="Logo"
-                height={40}
-                width={40}
-                src={logo}
-                onClick={handleOpen}
-              />
-              <Menu
-                anchorEl={anchorEl.current}
-                open={isOpen}
-                onClose={handleClose}
+            <>
+              <Link href="/cart">
+                <ShoppingBag fontSize="large" />
+              </Link>
+              <Box
                 sx={{
-                  marginTop: "45px",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
+                  cursor: "pointer",
+                  position: "relative",
                 }}
               >
-                <MenuItem>
-                  <div className="flex-center gap-2">
-                    <Image
-                      alt="Logo"
-                      className={styles.logoImage}
-                      height={40}
-                      width={40}
-                      src={logo}
-                    />
-                    <p>John Doe</p>
-                  </div>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
-              </Menu>
-            </Box>
+                <Image
+                  alt="Logo"
+                  height={40}
+                  style={{
+                    borderRadius: "50%",
+                  }}
+                  width={40}
+                  src={session.user.image as string}
+                  onClick={handleOpen}
+                />
+                <Menu
+                  anchorEl={anchorEl.current}
+                  open={isOpen}
+                  onClose={handleClose}
+                  sx={{
+                    marginTop: "45px",
+                  }}
+                >
+                  <MenuItem>
+                    <div className="flex-center gap-2">
+                      <Image
+                        alt="Logo"
+                        style={{
+                          borderRadius: "50%",
+                        }}
+                        height={40}
+                        width={40}
+                        src={session.user.image as string}
+                      />
+                      <p>John Doe</p>
+                    </div>
+                  </MenuItem>
+                  <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+                </Menu>
+              </Box>
+            </>
           )}
         </Box>
 
-        <Box onClick={handleOpenSidebar} className={styles.iconContainer}>
+        <Box
+          onClick={handleOpenSidebar}
+          sx={{
+            display: {
+              xs: "block",
+              md: "none",
+            },
+          }}
+        >
           <MenuIcon fontSize="large" />
         </Box>
         <Drawer
@@ -150,10 +194,29 @@ const Navbar = () => {
           open={isSidebarOpen}
           onClose={handleCloseSidebar}
         >
-          <Box className={styles.sidebarContainer}>
-            <Box className={styles.sbImageContainer}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+              padding: 2,
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+              }}
+            >
               <Image alt="Logo" height={100} width={100} src={logo} />
-              <Box className={styles.sbUserDetailsContainer}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 1,
+                }}
+              >
                 <Typography variant="h5">John Doe</Typography>
                 <Typography variant="caption">Buyer</Typography>
               </Box>
