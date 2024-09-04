@@ -32,8 +32,11 @@ export default function RootLayout({
                 xs: "8rem",
                 md: "0",
               },
+              paddingBottom: {
+                xs: "2rem",
+              },
               paddingX: {
-                xs: "1rem",
+                xs: "0.8rem",
                 md: "2rem",
               },
             }}

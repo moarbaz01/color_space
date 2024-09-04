@@ -122,6 +122,14 @@ const Signup = () => {
           gap: 2,
         }}
       >
+        <Typography
+          variant="h5"
+          sx={{
+            paddingY: "1rem",
+          }}
+        >
+          SIGN UP
+        </Typography>
         <TextField
           name="email"
           label="Enter your email"
@@ -229,7 +237,7 @@ const Signup = () => {
           </Box>
         </Box>
         <Button variant="contained" type="submit">
-          {loading ? <CircularProgress /> : "Signup"}
+          {loading ? <CircularProgress /> : "SIGN UP"}
         </Button>
 
         <Box component="div" sx={{ textAlign: "center" }}>

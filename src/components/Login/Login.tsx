@@ -14,14 +14,8 @@ import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { redirect, useRouter } from "next/navigation";
-interface FormData {
-  email: string;
-  password: string;
-}
-interface Errors {
-  email: boolean;
-  password: boolean;
-}
+import type { Errors, FormData } from "./types";
+
 const Login = () => {
   const [formData, setFormData] = useState<FormData>({
     email: "",
@@ -36,6 +30,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  // Handle Change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setErrors((prev) => ({
@@ -48,6 +43,7 @@ const Login = () => {
     }));
   };
 
+  // Handle Submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.email) {
@@ -108,6 +104,14 @@ const Login = () => {
           gap: 2,
         }}
       >
+        <Typography
+          variant="h5"
+          sx={{
+            paddingY: "1rem",
+          }}
+        >
+          Login
+        </Typography>
         <TextField
           name="email"
           label="Enter your email"
